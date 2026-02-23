@@ -12,13 +12,15 @@ _env = Environment(
 )
 
 
-def render_city_page(city_name: str, city_slug: str, sources: list[dict]) -> str:
+def render_city_page(
+    city_name: str, city_slug: str, sources: list[dict], base: str = ""
+) -> str:
     """Render one city's status page. sources = [ { name, status, url? }, ... ]."""
     t = _env.get_template("city.html")
-    return t.render(city_name=city_name, city_slug=city_slug, sources=sources)
+    return t.render(city_name=city_name, city_slug=city_slug, sources=sources, base=base)
 
 
-def render_index(cities: list[tuple[str, str]]) -> str:
+def render_index(cities: list[tuple[str, str]], base: str = "") -> str:
     """Render root index. cities = [ (slug, display_name), ... ]."""
     t = _env.get_template("index.html")
-    return t.render(cities=cities)
+    return t.render(cities=cities, base=base)

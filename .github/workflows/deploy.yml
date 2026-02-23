@@ -32,6 +32,8 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build
+        env:
+          BASE_URL: /${{ github.event.repository.name }}
         run: python -m src.build
 
       - name: Setup Pages

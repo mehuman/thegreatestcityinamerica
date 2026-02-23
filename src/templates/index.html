@@ -33,7 +33,7 @@
   <p class="sub">Scraped statuses (burn bans, overflows, etc.) by city.</p>
   <ul>
     {% for slug, name in cities %}
-    <li><a href="/{{ slug }}/">{{ name }}</a></li>
+    <li><a href="{{ base }}/{{ slug }}/">{{ name }}</a></li>
     {% endfor %}
   </ul>
 </body>

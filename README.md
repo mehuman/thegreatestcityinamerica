@@ -57,6 +57,8 @@ The site is built and deployed via **GitHub Actions**:
 
 Configure the repo to use **GitHub Pages** from the “GitHub Actions” source (Settings → Pages → Source: GitHub Actions). No need to commit `docs/` to the repo; the workflow generates it and deploys it.
 
+For a **project** site, the live URL is `https://<user>.github.io/<repo-name>/` (e.g. `https://mehuman.github.io/thegreatestcityinamerica/`). The workflow sets `BASE_URL` to the repo name so links to cities (e.g. Portland at `/thegreatestcityinamerica/portland/`) resolve correctly.
+
 ## Project layout
 
 - `cities/<city>/sources/*.yaml` — One config file per data source

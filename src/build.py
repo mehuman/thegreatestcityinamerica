@@ -1,4 +1,5 @@
 """Build static site: scrape all sources, render HTML, write to docs/."""
+import os
 from pathlib import Path
 
 from .config import load_all
@@ -14,6 +15,9 @@ def slug_to_name(slug: str) -> str:
 
 
 def main() -> None:
+    # For GitHub Pages project sites: base path is /<repo-name>, set in CI as BASE_URL
+    base_url = (os.environ.get("BASE_URL") or "").rstrip("/")
+
     all_cities = load_all()
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -31,13 +35,13 @@ def main() -> None:
                 "status": status,
                 "url": cfg.get("url"),
             })
-        html = template.render_city_page(city_name, city_slug, sources)
+        html = template.render_city_page(city_name, city_slug, sources, base=base_url)
         out_dir = DOCS_DIR / city_slug
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / "index.html").write_text(html, encoding="utf-8")
         cities_list.append((city_slug, city_name))
 
-    index_html = template.render_index(cities_list)
+    index_html = template.render_index(cities_list, base=base_url)
     (DOCS_DIR / "index.html").write_text(index_html, encoding="utf-8")
 
 
